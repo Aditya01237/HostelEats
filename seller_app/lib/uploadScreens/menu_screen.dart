@@ -256,6 +256,7 @@ class _MenuScreenState extends State<MenuScreen> {
         //save info to firebase
         saveInfo(downloadUrl);
       } else {
+        uploading = false;
         showDialog(
             context: context,
             builder: (c) {
