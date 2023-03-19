@@ -1,7 +1,13 @@
 import 'dart:io';
+import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:seller_app/global/global.dart';
 import 'package:seller_app/widgets/my_drawer.dart';
+import '../widgets/error_dialog.dart';
+import '../widgets/progress_bar.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -16,6 +22,9 @@ class _MenuScreenState extends State<MenuScreen> {
 
   TextEditingController shortInfoController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+
+  bool uploading = false;
+  String uniqueIdName = DateTime.now().microsecondsSinceEpoch.toString();
 
   defaultScreen() {
     return Scaffold(
@@ -152,7 +161,7 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
         actions: [
           TextButton(
-              onPressed: () {},
+              onPressed: uploading ? null : () => validateUpLoadForm(),
               child: Text(
                 "Add",
                 style: TextStyle(
@@ -164,6 +173,7 @@ class _MenuScreenState extends State<MenuScreen> {
       ),
       body: ListView(
         children: [
+          uploading == true ? linearProgress() : const Text(""),
           Container(
             height: 230,
             width: MediaQuery.of(context).size.width * 0.0,
@@ -228,6 +238,71 @@ class _MenuScreenState extends State<MenuScreen> {
       titleController.clear();
       imageXFile = null;
     });
+  }
+
+  validateUpLoadForm() async{
+    setState(() {
+      uploading = true;
+    });
+    if (imageXFile != null) {
+      if (shortInfoController.text.isNotEmpty &&
+          titleController.text.isNotEmpty) {
+        setState(() {
+          uploading = true;
+        });
+        //upload image
+        String downloadUrl = await upLoadImage(File(imageXFile!.path));
+
+        //save info to firebase
+        saveInfo(downloadUrl);
+      } else {
+        showDialog(
+            context: context,
+            builder: (c) {
+              return ErrorDialog(
+                  message: "Please write tittle and info for menu");
+            });
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorDialog(message: "Please pick an image for menu");
+          });
+    }
+  }
+
+  saveInfo(String downloadUrl) {
+    final ref = FirebaseFirestore.instance
+        .collection("seller")
+        .doc(sharedPreferences!.getString("uid"))
+        .collection("menus");
+
+    ref.doc(uniqueIdName).set({
+      "menuId": uniqueIdName,
+      "sellerUid": sharedPreferences!.getString("uid"),
+      "menuInfo": shortInfoController.text.toString(),
+      "menuTitle": titleController.text.toString(),
+      "publishedDate": DateTime.now(),
+      "status": "available",
+      "thumbnailUrl": downloadUrl,
+    });
+
+    clearMenusUploadForm();
+    setState(() {
+      uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
+      uploading = false;
+    });
+  }
+
+  upLoadImage(mImageFile) async {
+    storageRef.Reference reference =
+        storageRef.FirebaseStorage.instance.ref().child("menu");
+    storageRef.UploadTask uploadTask =
+        reference.child(uniqueIdName + ".jpg").putFile(mImageFile);
+    storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   @override
