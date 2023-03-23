@@ -23,7 +23,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Colors.blueGrey,
+                  Colors.greenAccent,
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(2.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.mirror),
+          ),
+        ),
         title: Text(sharedPreferences!.getString("name")!,style: TextStyle(fontSize: 40,fontFamily: "Lobster"),),
         centerTitle: true,
         automaticallyImplyLeading: true,

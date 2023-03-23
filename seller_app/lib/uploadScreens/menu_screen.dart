@@ -29,7 +29,19 @@ class _MenuScreenState extends State<MenuScreen> {
   defaultScreen() {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Colors.blueGrey,
+                  Colors.greenAccent,
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(2.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.mirror),
+          ),
+        ),
         title: const Text(
           "Add new Menu",
           style: TextStyle(fontSize: 40, fontFamily: "Lobster"),
@@ -281,7 +293,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
     ref.doc(uniqueIdName).set({
       "menuId": uniqueIdName,
-      "sellerUid": sharedPreferences!.getString("uid"),
+      "sellerUID": sharedPreferences!.getString("uid"),
       "menuInfo": shortInfoController.text.toString(),
       "menuTitle": titleController.text.toString(),
       "publishedDate": DateTime.now(),

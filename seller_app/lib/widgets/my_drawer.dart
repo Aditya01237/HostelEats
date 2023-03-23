@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:seller_app/mainScreens/history-screen.dart';
+import 'package:seller_app/mainScreens/new-orders-screen.dart';
+import 'package:seller_app/mainScreens/order-details-screen.dart';
 
 import '../auth/auth_screen.dart';
 import '../global/global.dart';
@@ -82,7 +85,7 @@ class MyDrawer extends StatelessWidget
                     ),
                     onTap: ()
                     {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (c)=> NewOrdersScreen()));
                     },
                   ),
                   ListTile(
@@ -93,7 +96,7 @@ class MyDrawer extends StatelessWidget
                     ),
                     onTap: ()
                     {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (c)=> HistoryScreen()));
                     },
                   ),
                   ListTile(

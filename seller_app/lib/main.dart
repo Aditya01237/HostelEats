@@ -13,7 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
+int itemCount = 0;
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
