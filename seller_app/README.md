@@ -11,7 +11,7 @@ The app comes with the following features:
 **Inventory Management**: Restaurant owners can manage their inventory, track stock levels, and receive alerts when supplies are running low.
 
 ## Screenshots
-Markup : ![picture alt](https://user-images.githubusercontent.com/80575917/232205789-d3076da7-b3f4-487e-b3bd-aa8d9578d3fc.jpeg)
+[splash](https://user-images.githubusercontent.com/80575917/232205789-d3076da7-b3f4-487e-b3bd-aa8d9578d3fc.jpeg  =250x250)
 
 ## Getting Started
 
