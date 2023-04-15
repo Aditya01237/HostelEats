@@ -12,7 +12,7 @@ The app comes with the following features:
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/80575917/232206544-9b728333-2f02-4ce2-b9e7-0319faf98dc2.jpeg" alt="splash" width="300" height="500">
+<img src="https://user-images.githubusercontent.com/80575917/232206544-9b728333-2f02-4ce2-b9e7-0319faf98dc2.jpeg" alt="splash" width="250" height="500">
 
 ## Getting Started
 
