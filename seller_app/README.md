@@ -11,8 +11,8 @@ The app comes with the following features:
 **Inventory Management**: Restaurant owners can manage their inventory, track stock levels, and receive alerts when supplies are running low.
 
 ## Screenshots
-[splash](https://user-images.githubusercontent.com/80575917/232205789-d3076da7-b3f4-487e-b3bd-aa8d9578d3fc.jpeg  =250x250)
-
+![splash](https://user-images.githubusercontent.com/80575917/232205789-d3076da7-b3f4-487e-b3bd-aa8d9578d3fc.jpeg  =250x250)
+![WhatsApp Image 2023-04-15 at 2 53 08 PM](https://user-images.githubusercontent.com/80575917/232206109-10097528-f976-4251-8a4f-39f870bcaa10.jpeg  =250x250)
 ## Getting Started
 
 To get started with the Restaurant Manager Flutter App, follow these steps:
