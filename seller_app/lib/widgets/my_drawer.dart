@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:seller_app/mainScreens/history-screen.dart';
 import 'package:seller_app/mainScreens/new-orders-screen.dart';
 import 'package:seller_app/mainScreens/order-details-screen.dart';
+import 'package:seller_app/mainScreens/past-screen.dart';
 
 import '../auth/auth_screen.dart';
 import '../global/global.dart';
@@ -91,12 +92,23 @@ class MyDrawer extends StatelessWidget
                   ListTile(
                     leading: const Icon(Icons.local_shipping, color: Colors.black,),
                     title: const Text(
-                      "History - Orders",
+                      "Current - Orders",
                       style: TextStyle(color: Colors.black,fontSize: 20),
                     ),
                     onTap: ()
                     {
                       Navigator.push(context, MaterialPageRoute(builder: (c)=> HistoryScreen()));
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.playlist_add_check, color: Colors.black,),
+                    title: const Text(
+                      "Past - Orders",
+                      style: TextStyle(color: Colors.black,fontSize: 20),
+                    ),
+                    onTap: ()
+                    {
+                      Navigator.push(context, MaterialPageRoute(builder: (c)=> PastScreen()));
                     },
                   ),
                   ListTile(

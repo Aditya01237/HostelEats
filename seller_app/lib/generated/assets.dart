@@ -2,10 +2,50 @@
 class Assets {
   Assets._();
 
-  static const String images3739244 = 'images/cooking.jpg';
+  static const String assistantMethodsAssistantMethods = 'lib/assistantMethods/assistant-methods.dart';
+  static const String authAuthScreen = 'lib/auth/auth_screen.dart';
+  static const String authLoginScreeen = 'lib/auth/login_screeen.dart';
+  static const String authRegisterScreen = 'lib/auth/register_screen.dart';
+  static const String externalWhatsapp = 'lib/external/whatsapp.dart';
+  static const String generatedAssets = 'lib/generated/assets.dart';
+  static const String globalGlobal = 'lib/global/global.dart';
+  static const String imagesCooking = 'images/cooking.jpg';
   static const String imagesDelivered = 'images/delivered.jpg';
   static const String imagesPacking = 'images/packing.png';
   static const String imagesSeller = 'images/seller.png';
   static const String imagesSplash = 'images/splash.jpg';
+  static const String libMain = 'lib/main.dart';
+  static const String mainScreensHistoryScreen = 'lib/mainScreens/history-screen.dart';
+  static const String mainScreensHistoryorderDetails = 'lib/mainScreens/historyorderDetails.dart';
+  static const String mainScreensHomeScreen = 'lib/mainScreens/home_screen.dart';
+  static const String mainScreensItemsScreen = 'lib/mainScreens/itemsScreen.dart';
+  static const String mainScreensNewOrdersScreen = 'lib/mainScreens/new-orders-screen.dart';
+  static const String mainScreensOrderDetailsScreen = 'lib/mainScreens/order-details-screen.dart';
+  static const String mainScreensPastScreen = 'lib/mainScreens/past-screen.dart';
+  static const String mainScreensPastorderdetails = 'lib/mainScreens/pastorderdetails.dart';
+  static const String modelAddress = 'lib/model/address.dart';
+  static const String modelItems = 'lib/model/items.dart';
+  static const String modelMenus = 'lib/model/menus.dart';
+  static const String screensSplashScreen = 'lib/screens/splash_screen.dart';
+  static const String sellerAppImagesCooking = 'images/cooking.jpg';
+  static const String uploadScreensItemsUploadScreen = 'lib/uploadScreens/items_upload_screen.dart';
+  static const String uploadScreensMenuScreen = 'lib/uploadScreens/menu_screen.dart';
+  static const String widgetsCustomLogin = 'lib/widgets/custom_login.dart';
+  static const String widgetsErrorDialog = 'lib/widgets/error_dialog.dart';
+  static const String widgetsHistoryAddressDesign = 'lib/widgets/history-address-design.dart';
+  static const String widgetsHistoryOrderCard = 'lib/widgets/history-order-card.dart';
+  static const String widgetsInfoDesign = 'lib/widgets/info_design.dart';
+  static const String widgetsItemDetailScreen = 'lib/widgets/item-detail-screen.dart';
+  static const String widgetsItemsDesign = 'lib/widgets/items_design.dart';
+  static const String widgetsLoadingDialog = 'lib/widgets/loading_dialog.dart';
+  static const String widgetsMyDrawer = 'lib/widgets/my_drawer.dart';
+  static const String widgetsOrderCard = 'lib/widgets/order-card.dart';
+  static const String widgetsPastAddressDesign = 'lib/widgets/past-address-design.dart';
+  static const String widgetsPastOrderCard = 'lib/widgets/past-order-card.dart';
+  static const String widgetsProgressBar = 'lib/widgets/progress_bar.dart';
+  static const String widgetsShipmentAddressDesign = 'lib/widgets/shipment-address-design.dart';
+  static const String widgetsSimpleAppBar = 'lib/widgets/simple-app-bar.dart';
+  static const String widgetsStatusBanner = 'lib/widgets/status-banner.dart';
+  static const String widgetsTextWidgetHeader = 'lib/widgets/text_widget_header.dart';
 
 }

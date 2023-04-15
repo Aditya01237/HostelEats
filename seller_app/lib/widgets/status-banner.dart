@@ -31,7 +31,7 @@ class StatusBanner extends StatelessWidget
               tileMode: TileMode.mirror
           )
       ),
-      height: 60,
+      height: 0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

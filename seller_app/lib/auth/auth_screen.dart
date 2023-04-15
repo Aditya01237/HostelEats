@@ -16,7 +16,19 @@ class _AuthScreenState extends State<AuthScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Colors.blueGrey,
+                    Colors.greenAccent,
+                  ],
+                  begin: FractionalOffset(0.0, 0.0),
+                  end: FractionalOffset(2.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.mirror),
+            ),
+          ),
           automaticallyImplyLeading: false,
           title: const Text(
               "Hostel Eats",
@@ -41,7 +53,17 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
         body: Container(
-          color: Colors.blueGrey[200],
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Colors.blueGrey,
+                  Colors.greenAccent,
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(2.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.mirror),
+          ),
           child: TabBarView(
             children: [
               LoginScreen(),

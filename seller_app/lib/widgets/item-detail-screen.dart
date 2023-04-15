@@ -4,9 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:seller_app/global/global.dart';
 import 'package:seller_app/mainScreens/home_screen.dart';
 import 'package:seller_app/model/items.dart';
-import 'package:seller_app/widgets/items_design.dart';
-import '../global/global.dart';
-import '../screens/splash_screen.dart';
 import 'simple-app-bar.dart';
 
 
@@ -48,11 +45,66 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen>
     });
   }
 
+  updateItem(String itemID, int newPrice) {
+    FirebaseFirestore.instance
+        .collection("seller")
+        .doc(sharedPreferences!.getString("uid"))
+        .collection("menus")
+        .doc(widget.model!.menuId!)
+        .collection("items")
+        .doc(itemID)
+        .update({
+      "price": newPrice,
+    })
+        .then((value) {
+      FirebaseFirestore.instance
+          .collection("items")
+          .doc(itemID)
+          .update({
+        "price": newPrice,
+      });
+      Navigator.of(context).pop();
+      Fluttertoast.showToast(msg: "Item price updated successfully.");
+    });
+  }
+
+  Future<void> _showUpdatePriceDialog() async {
+    int? newPrice;
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Update Price'),
+          content: TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: 'New Price',
+            ),
+            onChanged: (value) {
+              newPrice = int.tryParse(value)?.toInt();
+            },
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Update'),
+              onPressed: () {
+                if (newPrice != null) {
+                  updateItem(widget.model!.itemID!, newPrice!);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: SimpleAppBar(title: sharedPreferences!.getString("name"),),
+      appBar: SimpleAppBar(title: widget.model!.title.toString()),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -92,34 +144,74 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen>
 
           const SizedBox(height: 10,),
 
-          Center(
-            child: InkWell(
-              onTap: ()
-              {
-                //delete item
-                deleteItem(widget.model!.itemID!);
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.cyan,
-                        Colors.amber,
-                      ],
-                      begin:  FractionalOffset(0.0, 0.0),
-                      end:  FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp,
-                    )
-                ),
-                width: MediaQuery.of(context).size.width - 13,
-                height: 50,
-                child: const Center(
-                  child: Text(
-                    "Delete this Item",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: ()
+                      {
+                        //delete item
+                        deleteItem(widget.model!.itemID!);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                                colors: [
+                                  Colors.blueGrey,
+                                  Colors.greenAccent,
+                                ],
+                                begin: FractionalOffset(0.0, 0.0),
+                                end: FractionalOffset(2.0, 0.0),
+                                stops: [0.0, 1.0],
+                                tileMode: TileMode.mirror)
+                        ),
+                        width: MediaQuery.of(context).size.width - 13,
+                        height: 50,
+                        child: const Center(
+                          child: Text(
+                            "Delete this Item",
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: InkWell(
+                      onTap: ()
+                      {
+                        _showUpdatePriceDialog();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                                colors: [
+                                  Colors.blueGrey,
+                                  Colors.greenAccent,
+                                ],
+                                begin: FractionalOffset(0.0, 0.0),
+                                end: FractionalOffset(2.0, 0.0),
+                                stops: [0.0, 1.0],
+                                tileMode: TileMode.mirror)
+                        ),
+                        width: MediaQuery.of(context).size.width - 13,
+                        height: 50,
+                        child: const Center(
+                          child: Text(
+                            "Update Price",
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

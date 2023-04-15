@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:seller_app/global/global.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:seller_app/model/address.dart';
-import '../mainScreens/new-orders-screen.dart';
-import '../screens/splash_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../external/whatsapp.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class ShipmentAddressDesign extends StatelessWidget {
@@ -14,8 +12,8 @@ class ShipmentAddressDesign extends StatelessWidget {
   final String? sellerId;
   final String? orderByUser;
 
-  ShipmentAddressDesign(
-      {this.model,
+  const ShipmentAddressDesign(
+      {super.key, this.model,
       this.orderStatus,
       this.orderId,
       this.sellerId,
@@ -23,6 +21,7 @@ class ShipmentAddressDesign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String amount = "";
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -106,16 +105,34 @@ class ShipmentAddressDesign extends StatelessWidget {
                 children: [
                   Expanded(
                     child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NewOrdersScreen()));
+                      onTap: () async {
+                        Fluttertoast.showToast(msg: "Your order has been confirmed.");
+                        FirebaseFirestore.instance
+                            .collection('orders')
+                            .doc(orderId)
+                            .get()
+                            .then((docSnapshot) {
+                          if (docSnapshot.exists) {
+                            amount =
+                                docSnapshot.data()!['totalAmount'].toString();
+                            String str = "Thanks!\n${model!.name!}\n${model!.phoneNumber!}\n${model!.fullAddress!}\nTotal amount = \$$amount\nYour order has been confirmed";
+                            openWhatsApp("91${model!.phoneNumber!}", str);
+                          }
+                        });
+                        FirebaseFirestore.instance.collection('orders').doc(orderId).get().then((docSnapshot) {
+                          if (docSnapshot.exists) {
+                            // Copy the document to a new collection with the same ID
+                            FirebaseFirestore.instance.collection('completedOrders').doc(orderId).set(docSnapshot.data()!);
+
+                            // Delete the document from the original collection
+                            FirebaseFirestore.instance.collection('orders').doc(orderId).delete();
+                          }
+                        });
                       },
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                                 colors: [
                                   Colors.blueGrey,
                                   Colors.greenAccent,
@@ -128,20 +145,18 @@ class ShipmentAddressDesign extends StatelessWidget {
                         height: 50,
                         child: Center(
                           child: Text(
-                            orderStatus == "ended"
-                                ? "Go Back"
-                                : "Order Delivered",
+                            orderStatus == "ended" ? "Go Back" : "Confirm",
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 15.0),
+                                color: Colors.white, fontSize: 20.0),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   InkWell(
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: LinearGradient(
                               colors: [
@@ -155,14 +170,53 @@ class ShipmentAddressDesign extends StatelessWidget {
                       // width: MediaQuery.of(context).size.width - 40,
                       height: 55,
                       child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.phone,
                             color: Colors.white,
                             size: 30,
                           ),
                           onPressed: () async {
-                      await FlutterPhoneDirectCaller.callNumber(model!.phoneNumber!);
-                      }),
+                            await FlutterPhoneDirectCaller.callNumber(
+                                model!.phoneNumber!);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () async {
+                        Fluttertoast.showToast(msg: "Your Order Has Been Canceled.");
+                        FirebaseFirestore.instance
+                            .collection('orders')
+                            .doc(orderId)
+                            .delete()
+                            .then((value) {
+                          String str = "Sorry!\n${model!.name!}\n${model!.phoneNumber!}\n${model!.fullAddress!}\nYour Order Has Been Canceled.";
+                          openWhatsApp("91${model!.phoneNumber!}", str);
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: const LinearGradient(
+                                colors: [
+                                  Colors.blueGrey,
+                                  Colors.greenAccent,
+                                ],
+                                begin: FractionalOffset(0.0, 0.0),
+                                end: FractionalOffset(2.0, 0.0),
+                                stops: [0.0, 1.0],
+                                tileMode: TileMode.mirror)),
+                        // width: MediaQuery.of(context).size.width - 40,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            orderStatus == "ended" ? "Go Back" : "Cancel",
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 20.0),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],

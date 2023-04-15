@@ -1,63 +1,72 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seller_app/global/global.dart';
+import 'package:seller_app/widgets/history-order-card.dart';
 import 'package:seller_app/widgets/progress_bar.dart';
 import '../assistantMethods/assistant-methods.dart';
-import '../widgets/order-card.dart';
 import '../widgets/simple-app-bar.dart';
 
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
 
-class HistoryScreen extends StatefulWidget
-{
   @override
   _HistoryScreenState createState() => _HistoryScreenState();
 }
 
-
-
-class _HistoryScreenState extends State<HistoryScreen>
-{
+class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: SimpleAppBar(title: "History",),
+        // The app bar widget that displays the title of the screen.
+        appBar: SimpleAppBar(title: "Current Orders"),
         body: StreamBuilder<QuerySnapshot>(
+          // The stream that listens for completed orders for the current seller.
           stream: FirebaseFirestore.instance
-              .collection("orders")
+              .collection("completedOrders")
+              .where("status", isEqualTo: "normal")
               .where("sellerUID", isEqualTo: sharedPreferences!.getString("uid"))
-              .where("status", isEqualTo: "ended")
-              .orderBy("orderTime", descending: true)
               .snapshots(),
-          builder: (c, snapshot)
-          {
-            return snapshot.hasData
-                ? ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (c, index)
-              {
-                return FutureBuilder<QuerySnapshot>(
-                  future: FirebaseFirestore.instance
-                      .collection("items")
-                      .where("itemID", whereIn: separateOrderItemIDs((snapshot.data!.docs[index].data()! as Map<String, dynamic>) ["productIDs"]))
-                      .where("sellerUID", whereIn: (snapshot.data!.docs[index].data()! as Map<String, dynamic>)["uid"])
-                      .orderBy("publishedDate", descending: true)
-                      .get(),
-                  builder: (c, snap)
-                  {
-                    return snap.hasData
-                        ? OrderCard(
-                      itemCount: snap.data!.docs.length,
-                      data: snap.data!.docs,
-                      orderID: snapshot.data!.docs[index].id,
-                      seperateQuantitiesList: separateOrderItemQuantities((snapshot.data!.docs[index].data()! as Map<String, dynamic>)["productIDs"]),
+          builder: (context, snapshot) {
+            // Check if there's data available in the stream.
+            if (snapshot.hasData) {
+              // If there's data, display a ListView of HistoryOrderCard widgets.
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  // Fetch details about each item in the order from Firestore.
+                  return FutureBuilder<QuerySnapshot>(
+                    future: FirebaseFirestore.instance
+                        .collection("items")
+                        .where(
+                      "itemID",
+                      whereIn: separateOrderItemIDs((snapshot.data!.docs[index].data() as Map<String, dynamic>)["productIDs"]),
                     )
-                        : Center(child: circularProgress());
-                  },
-                );
-              },
-            )
-                : Center(child: circularProgress(),);
+                        .where("sellerUID", whereIn: (snapshot.data!.docs[index].data() as Map<String, dynamic>)["uid"])
+                        .orderBy("publishedDate", descending: true)
+                        .get(),
+                    builder: (context, snapshotItems) {
+                      // Check if there's data available in the snapshot of the items.
+                      if (snapshotItems.hasData) {
+                        // If there's data, display a HistoryOrderCard widget for the order.
+                        return HistoryOrderCard(
+                          itemCount: snapshotItems.data!.docs.length,
+                          data: snapshotItems.data!.docs,
+                          orderID: snapshot.data!.docs[index].id,
+                          seperateQuantitiesList: separateOrderItemQuantities((snapshot.data!.docs[index].data() as Map<String, dynamic>)["productIDs"]),
+                        );
+                      } else {
+                        // If there's no data, display a progress indicator.
+                        return Center(child: circularProgress());
+                      }
+                    },
+                  );
+                },
+              );
+            } else {
+              // If there's no data, display a progress indicator.
+              return Center(child: circularProgress());
+            }
           },
         ),
       ),

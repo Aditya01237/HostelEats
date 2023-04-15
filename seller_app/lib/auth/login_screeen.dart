@@ -32,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
   // This function is likely bound to a "Submit" button in the user interface.
 
   formValidation() {
-
     //The function first checks if both the email and password fields are not empty.
     // If they are not empty, it calls the loginNow function to attempt to log in
     // the user using the email and password provided.
@@ -63,8 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
           return LoadingDialog(message: "Checking Credentials");
         });
 
-      //The function initializes a nullable User
-      // object called currentUser to be used later.
+    //The function initializes a nullable User
+    // object called currentUser to be used later.
 
     User? currentUser;
 
@@ -73,16 +72,16 @@ class _LoginScreenState extends State<LoginScreen> {
     // the user's email and password as arguments and returns a Future that
     // resolves to an UserCredential object upon successful sign-in.
 
-    await firebaseAuth.signInWithEmailAndPassword(
-
+    await firebaseAuth
+        .signInWithEmailAndPassword(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
 
       //The then method is used on the Future returned by signInWithEmailAndPassword
       // to set the currentUser variable to the signed-in user
       // (accessed through the user property of the UserCredential object).
-
-    ).then((auth) {
+    )
+        .then((auth) {
       currentUser = auth.user!;
     }).catchError((error) {
       //This method dismisses the loading dialog and shows an error dialog
@@ -119,30 +118,32 @@ class _LoginScreenState extends State<LoginScreen> {
         // and store them locally using shared preferences.
         .get()
         .then((snapshot) async {
-          if(snapshot.exists)
-            {
-              //in the callback function, the sharedPreferences object is used to set
-              // several key-value pairs: "uid", "email", "name", and "photoUrl".
-              // These values are retrieved from the DocumentSnapshot using the data()
-              // method and accessing the relevant fields by name.
-              await sharedPreferences!.setString("uid", currentUser.uid);
-              await sharedPreferences!.setString("email", snapshot.data()!["sellerEmail"]);
-              await sharedPreferences!.setString("name", snapshot.data()!["sellerName"]);
-              await sharedPreferences!.setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
+      if (snapshot.exists) {
+        //in the callback function, the sharedPreferences object is used to set
+        // several key-value pairs: "uid", "email", "name", and "photoUrl".
+        // These values are retrieved from the DocumentSnapshot using the data()
+        // method and accessing the relevant fields by name.
+        await sharedPreferences!.setString("uid", currentUser.uid);
+        await sharedPreferences!
+            .setString("email", snapshot.data()!["sellerEmail"]);
+        await sharedPreferences!
+            .setString("name", snapshot.data()!["sellerName"]);
+        await sharedPreferences!
+            .setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
 
-              //After the Future returned by readDataAndSetDataLocally has completed, the
-              // loading dialog is dismissed and the user is navigated to the HomeScreen
-              // widget using the Navigator.push method.
+        //After the Future returned by readDataAndSetDataLocally has completed, the
+        // loading dialog is dismissed and the user is navigated to the HomeScreen
+        // widget using the Navigator.push method.
 
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (c) => const HomeScreen()));
-            }
-          else
-            {
-              firebaseAuth.signOut();
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (c) => const AuthScreen()));
-            }
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      } else {
+        firebaseAuth.signOut();
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const AuthScreen()));
+      }
     });
   }
 
@@ -186,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 fixedSize: const Size(240, 50),
-                backgroundColor: Colors.blueGrey[700],
+                backgroundColor: Colors.transparent,
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)))),
             onPressed: () {

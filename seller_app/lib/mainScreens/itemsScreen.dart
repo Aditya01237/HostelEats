@@ -5,7 +5,6 @@ import 'package:seller_app/global/global.dart';
 import 'package:seller_app/model/items.dart';
 import 'package:seller_app/model/menus.dart';
 import 'package:seller_app/uploadScreens/items_upload_screen.dart';
-import 'package:seller_app/widgets/info_design.dart';
 import 'package:seller_app/widgets/my_drawer.dart';
 import 'package:seller_app/widgets/progress_bar.dart';
 import 'package:seller_app/widgets/text_widget_header.dart';

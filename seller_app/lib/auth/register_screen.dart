@@ -242,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(240, 50),
-                  backgroundColor: Colors.blueGrey[700],
+                  backgroundColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))
                   )

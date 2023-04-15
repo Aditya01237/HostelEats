@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../model/address.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/shipment-address-design.dart';
+import '../widgets/simple-app-bar.dart';
 import '../widgets/status-banner.dart';
 
 
@@ -49,6 +50,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
   Widget build(BuildContext context)
   {
     return Scaffold(
+      appBar: SimpleAppBar(title:"Order details"),
       body: SafeArea(
         child: SingleChildScrollView(
           child: FutureBuilder<DocumentSnapshot>(
