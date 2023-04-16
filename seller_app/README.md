@@ -18,20 +18,20 @@ The app comes with the following features:
 
 To get started with the Restaurant Manager Flutter App, follow these steps:
 
-Clone the repository.
-Run flutter pub get to install the required dependencies.
-Open the project in your preferred IDE.
-Run the app on a simulator or a physical device.
+*Clone the repository.
+*Run flutter pub get to install the required dependencies.
+*Open the project in your preferred IDE.
+*Run the app on a simulator or a physical device.
 
 ## Technologies Used
 
 The Restaurant Manager Flutter App is built using the following technologies:
 
-Flutter
-Dart
-Firebase Firestore
-Firebase Authentication
-Firebase Storage
+*Flutter
+*Dart
+*Firebase Firestore
+*Firebase Authentication
+*Firebase Storage
 
 ## License
  
