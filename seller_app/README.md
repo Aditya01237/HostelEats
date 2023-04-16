@@ -12,7 +12,7 @@ The app comes with the following features:
 
 ## Screenshots
 
-<img src= "https://user-images.githubusercontent.com/80575917/232290240-25bdad07-efaa-4e7c-8086-370c6ba9ffc6.png" alt="splash" width="270" height="500"/> <img src= "https://user-images.githubusercontent.com/80575917/232290367-9e82da29-eba3-45b5-a3be-dedaabff5aca.png" alt="splash" width="270" height="500">
+<img src= "https://user-images.githubusercontent.com/80575917/232290240-25bdad07-efaa-4e7c-8086-370c6ba9ffc6.png" alt="splash" width="270" height="500"/> <img src= "https://user-images.githubusercontent.com/80575917/232290367-9e82da29-eba3-45b5-a3be-dedaabff5aca.png" alt="splash" width="270" height="500"/> <img src= "https://user-images.githubusercontent.com/80575917/232290800-93b719fa-baca-4926-9054-8a38de17714d.png" alt="splash" width="270" height="500">
 
 ## Getting Started
 
