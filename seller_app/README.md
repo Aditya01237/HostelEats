@@ -34,7 +34,7 @@ Firebase Authentication
 Firebase Storage
 
 ## License
-
+ 
 The Restaurant Manager Flutter App is open source and available under the MIT License. See the LICENSE file for more information.
 
 ## Contact
