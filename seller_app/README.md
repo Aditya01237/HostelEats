@@ -37,6 +37,6 @@ The Restaurant Manager Flutter App is built using the following technologies:
  
 The Restaurant Manager Flutter App is open source and available under the MIT License. See the LICENSE file for more information.
 
-## Contact
+## Contact 
 
 If you have any questions or concerns about the Restaurant Manager Flutter App, please contact me at adityapareek874@gmail..com.
