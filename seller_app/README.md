@@ -6,9 +6,9 @@ The Restaurant Manager Flutter App is a mobile application designed for restaura
 
 The app comes with the following features:
 
-**Order Management**: Restaurant owners can view and manage their orders in real-time. They can accept, reject, or cancel orders as needed.
-**Menu Management**: Restaurant owners can add, edit, and remove menu items from their menus. They can also update prices, descriptions, and images for each item.
-**Inventory Management**: Restaurant owners can manage their inventory, track stock levels, and receive alerts when supplies are running low.
+* **Order Management**: Restaurant owners can view and manage their orders in real-time. They can accept, reject, or cancel orders as needed.
+* **Menu Management**: Restaurant owners can add, edit, and remove menu items from their menus. They can also update prices, descriptions, and images for each item.
+* **Inventory Management**: Restaurant owners can manage their inventory, track stock levels, and receive alerts when supplies are running low.
 
 ## Screenshots
 
